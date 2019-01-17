@@ -107,25 +107,25 @@ namespace Math_Quiz
         private void sum_ValueChanged(object sender, EventArgs e)
         {
             if (sum.Value == (addend1 + addend2))
-                System.Media.SystemSounds.Asterisk.Play();
+                SystemSounds.Asterisk.Play();
         }
 
         private void difference_ValueChanged(object sender, EventArgs e)
         {
             if (difference.Value == (minuend - subtrahend))
-                System.Media.SystemSounds.Asterisk.Play();
+                SystemSounds.Asterisk.Play();
         }
 
         private void product_ValueChanged(object sender, EventArgs e)
         {
             if (product.Value == (multiplicand * multiplier))
-                System.Media.SystemSounds.Asterisk.Play();               
+                SystemSounds.Asterisk.Play();
         }
 
         private void quotient_ValueChanged(object sender, EventArgs e)
         {
             if (quotient.Value == (dividend / divisor))
-                System.Media.SystemSounds.Asterisk.Play();
+                SystemSounds.Asterisk.Play();
         }
 
         private void startButton_Click(object sender, EventArgs e)
