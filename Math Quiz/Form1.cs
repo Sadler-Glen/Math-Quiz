@@ -1,12 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
+//using System.Collections.Generic;
+//using System.ComponentModel;
+//using System.Data;
 using System.Drawing;
-using System.Linq;
+//using System.Linq;
 using System.Media;
-using System.Text;
-using System.Threading.Tasks;
+//using System.Text;
+//using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Math_Quiz
@@ -101,79 +101,97 @@ namespace Math_Quiz
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            label4.Text = DateTime.Now.ToString("dd MMMM yyyy");
+            toolStripStatusLabel1.Text = DateTime.Now.ToString("dd MMMM yyyy");
+            toolStripStatusLabel1.BackColor = SystemColors.Control;
         }
 
         private void sum_ValueChanged(object sender, EventArgs e)
         {
-            if (sum.Value == (addend1 + addend2))
-                SystemSounds.Asterisk.Play();
+                if (sum.Value == (addend1 + addend2))
+                {
+                    SystemSounds.Beep.Play();
+                    sum.BackColor = Color.LightGreen;
+                }               
         }
 
         private void difference_ValueChanged(object sender, EventArgs e)
         {
             if (difference.Value == (minuend - subtrahend))
-                SystemSounds.Asterisk.Play();
+            {
+                SystemSounds.Beep.Play();
+                difference.BackColor = Color.LightGreen;
+            }
+                
         }
 
         private void product_ValueChanged(object sender, EventArgs e)
         {
             if (product.Value == (multiplicand * multiplier))
-                SystemSounds.Asterisk.Play();
+            {
+                SystemSounds.Beep.Play();
+                product.BackColor = Color.LightGreen;
+            }
+                
         }
 
         private void quotient_ValueChanged(object sender, EventArgs e)
         {
             if (quotient.Value == (dividend / divisor))
-                SystemSounds.Asterisk.Play();
+            {
+                SystemSounds.Beep.Play();
+                quotient.BackColor = Color.LightGreen;
+            }
+                
         }
 
         private void startButton_Click(object sender, EventArgs e)
         {
             StartTheQuiz();
             startButton.Enabled = false;
-            timeLabel.BackColor = Color.Transparent;
-            //timeLabel.BackColor = Color.WhiteSmoke;           
+            ColorOriginal();
+            timeLabel.BackColor = Color.LightGreen;
         }
 
         private void timer1_Tick(object sender, EventArgs e)
         {
+            
             if (CheckTheAnswer())
             {
                 // If CheckTheAnswer() returns true, then the user 
                 // got the answer right. Stop the timer  
                 // and show a MessageBox.
                 timer1.Stop();
+
                 MessageBox.Show("You got all the answers right!",
                                 "Congratulations!");
                 startButton.Enabled = true;
+                AllCorrectAnswersGreen();
             }
             else if (timeLeft > 0)
             {
                 // Display the new time left
                 // by updating the Time Left label.
-                timeLeft --;
+                
+                timeLeft--;
                 timeLabel.Text = timeLeft + " seconds";
                 if (timeLeft <= 5)
                 {
                     timeLabel.BackColor = Color.Red;
+                    timeLabel.ForeColor = Color.White;
                 }
-                //if (timeLeft == 0)
-                //{
-                //    timeLabel.BackColor = Color.Transparent;
-                //}
             }
             else
             {
                 // a MessageBox, and fill in the answers.
                 timer1.Stop();
                 timeLabel.Text = "Time's up!";
-                timeLabel.BackColor = Color.Transparent;
+                ColorOriginal();
                 MessageBox.Show("You didn't finish in time.", "Sorry");
                 sum.Value = addend1 + addend2;
                 difference.Value = minuend - subtrahend;
                 product.Value = multiplicand * multiplier;
                 quotient.Value = dividend / divisor;
+                AllCorrectAnswersGreen();
                 startButton.Enabled = true;
             }
 
@@ -204,6 +222,24 @@ namespace Math_Quiz
                 int lengthOfAnswer = answerBox.Value.ToString().Length;
                 answerBox.Select(0, lengthOfAnswer);
             }
+        }
+
+        private void ColorOriginal()
+        {
+            timeLabel.BackColor = SystemColors.Control;
+            timeLabel.ForeColor = Color.Black;
+            sum.BackColor = Color.White;
+            difference.BackColor = Color.White;
+            product.BackColor = Color.White;
+            quotient.BackColor = Color.White;
+        }
+
+        private void AllCorrectAnswersGreen()
+        {
+            sum.BackColor = Color.LightGreen;
+            difference.BackColor = Color.LightGreen;
+            product.BackColor = Color.LightGreen;
+            quotient.BackColor = Color.LightGreen;
         }
     }
 }
